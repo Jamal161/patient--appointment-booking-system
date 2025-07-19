@@ -15,7 +15,7 @@
    - The tables will be created automatically when the FastAPI server starts
 
 
-   4. Create Admin using API and postman or swagger ui 
+   4. **Create Admin using API and postman or swagger ui**
 
 📂 **API Documentation**
 - Full interactive documentation is available via Swagger UI.

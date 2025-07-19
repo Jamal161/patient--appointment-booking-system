@@ -17,8 +17,7 @@
 
    4. **Create Admin using API and postman or swagger ui**
 
-📂 **API Documentation**
-- Full interactive documentation is available via Swagger UI.
+📂 **API**
 
 - Base URL: http://localhost:8000
 

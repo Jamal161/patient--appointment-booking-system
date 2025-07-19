@@ -1,0 +1,70 @@
+
+
+-- Create ENUM type for user_type
+CREATE TYPE usertype AS ENUM ('admin', 'doctor', 'patient');
+
+-- Create users table
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    full_name VARCHAR NOT NULL,
+    email VARCHAR NOT NULL UNIQUE,
+    mobile_number VARCHAR NOT NULL UNIQUE,
+    password VARCHAR NOT NULL,
+    user_type usertype NOT NULL,
+
+    -- Address fields
+    address_division VARCHAR,
+    address_district VARCHAR,
+    address_thana VARCHAR,
+
+    -- Profile
+    profile_image VARCHAR,
+
+    -- Doctor-specific fields
+    license_number VARCHAR,
+    experience_years INTEGER,
+    consultation_fee FLOAT,
+    available_timeslots TEXT[],  -- ARRAY of time slot strings like "09:00 - 10:00"
+    specialization VARCHAR,
+
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+
+
+
+-- Create ENUM type AppointmentStatus if it doesn't exist
+DO $$
+BEGIN
+    IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'appointmentstatus') THEN
+        CREATE TYPE appointmentstatus AS ENUM ('pending', 'confirmed', 'cancelled', 'completed');
+    END IF;
+END$$;
+
+-- Create appointments table
+CREATE TABLE IF NOT EXISTS appointments (
+    id SERIAL PRIMARY KEY,
+    patient_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+    doctor_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+    appointment_datetime TIMESTAMP NOT NULL,
+    notes TEXT,
+    status appointmentstatus NOT NULL DEFAULT 'pending',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+
+
+
+
+CREATE TABLE reports (
+    id SERIAL PRIMARY KEY,
+    doctor_id INTEGER REFERENCES users(id),
+    month VARCHAR NOT NULL,
+    total_patients INTEGER,
+    total_appointments INTEGER,
+    total_earnings FLOAT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+

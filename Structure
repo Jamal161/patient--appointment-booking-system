@@ -1,0 +1,30 @@
+.
+├── backend/
+│   ├── __pycache__/
+│   ├── controllers/
+│   ├── models/
+│   ├── schemas/
+│   ├── uploads/
+│   ├── utils/
+│   ├── views/
+│   ├── main.py
+│   ├── requirements.txt
+│   └── Table.txt
+│
+├── frontend/
+│   ├── node_modules/
+│   ├── public/
+│   ├── src/
+│
+├── .eslintrc.cjs
+├── .gitignore
+├── components.json
+├── index.html
+├── jsconfig.json
+├── package-lock.json
+├── package.json
+├── postcss.config.js
+├── tailwind.config.js
+├── vite.config.js
+├── docker-compose.yml
+└── README.md
